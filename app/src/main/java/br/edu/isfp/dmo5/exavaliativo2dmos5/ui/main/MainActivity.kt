@@ -1,5 +1,6 @@
 package br.edu.isfp.dmo5.exavaliativo2dmos5.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.isfp.dmo5.exavaliativo2dmos5.R
 import br.edu.isfp.dmo5.exavaliativo2dmos5.databinding.ActivityMainBinding
 import br.edu.isfp.dmo5.exavaliativo2dmos5.ui.adapter.JournalAdapter
+import br.edu.isfp.dmo5.exavaliativo2dmos5.ui.diary.JournalActivity
 import br.edu.isfp.dmo5.exavaliativo2dmos5.ui.listener.JournalClickListener
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, JournalClickListener {
@@ -32,7 +34,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, JournalClickList
 
     override fun onClick(view: View) {
         if (view.id == R.id.button_add){
-
+            val mIntent = Intent(this, JournalActivity::class.java)
+            startActivity(mIntent)
         }
     }
 
@@ -53,15 +56,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, JournalClickList
         viewModel.journals.observe(this, Observer { journals ->
             adapter.submitDataset(journals)
             adapter.notifyDataSetChanged()
-        })
-
-        viewModel.inserted.observe(this, Observer {
-            val str =  if(it){
-                R.string.insert_sucess
-            }else{
-                R.string.insert_failure
-            }
-            Toast.makeText(this, str, Toast.LENGTH_LONG).show()
         })
 
         viewModel.removed.observe(this, Observer {
