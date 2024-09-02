@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "234606158835",
+    "project_id": "exavaliativo2-dmos5",
+    "storage_bucket": "exavaliativo2-dmos5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234606158835:android:18c26d58a90e6d80d1e886",
+        "android_client_info": {
+          "package_name": "br.edu.isfp.dmo5.exavaliativo2dmos5"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzkJvmUcXS4XvPtsua73LBwoHTyBvoH0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
