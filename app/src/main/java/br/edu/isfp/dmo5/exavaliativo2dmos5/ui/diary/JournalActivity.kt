@@ -23,11 +23,12 @@ class JournalActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_journal)
+        binding = ActivityJournalBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setUpUiDate()
         setUpListeners()
         setUpObservers()
+      //  setUpUiDate()
     }
 
     override fun onDateSet(datePicker: DatePicker, year: Int, month: Int, dayOfMounth: Int) {
