@@ -10,9 +10,10 @@ class JournalRepository {
     companion object{
         const val TAG = "EXAVALIATIVO2"
         const val COLLECTION = "diario"
-        const val ATT_TITLE = "titulo"
-        const val ATTR_DATETIME = "data-horario"
-        const val ATTR_DESCRIPTION = "descricao"
+        const val ATT_TITLE = "title"
+        const val ATT_ID = "id"
+        const val ATTR_DATETIME = "localDateTime"
+        const val ATTR_DESCRIPTION = "description"
     }
 
     private val database = Firebase.firestore
@@ -44,6 +45,13 @@ class JournalRepository {
             .addOnFailureListener {
                 callback(false)
             }
+    }
+
+    fun remove(position: Int, callback: (Boolean) -> Unit){
+        database.collection(COLLECTION)
+            .document(ATT_ID).delete()
+            .addOnSuccessListener { callback(true) }
+            .addOnFailureListener { callback(false) }
     }
 
 }

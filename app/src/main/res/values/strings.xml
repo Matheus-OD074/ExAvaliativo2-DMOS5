@@ -9,4 +9,8 @@
     <string name="hint_desc">Escreva uma descrição</string>
     <string name="btn_confirm">Confirmar</string>
     <string name="btn_cancel">Cancelar</string>
+    <string name="insert_sucess">Inserido com sucesso</string>
+    <string name="insert_failure">Falha na inserção</string>
+    <string name="remove_sucess">Remoção efetuada com sucesso</string>
+    <string name="remove_failure">Falha na remoção</string>
 </resources>

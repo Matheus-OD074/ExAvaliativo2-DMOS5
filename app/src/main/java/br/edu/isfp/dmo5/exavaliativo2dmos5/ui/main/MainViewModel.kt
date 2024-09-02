@@ -18,6 +18,9 @@ class MainViewModel: ViewModel() {
     private val _inserted = MutableLiveData<Boolean>()
     val inserted: LiveData<Boolean> = _inserted
 
+    private val _removed = MutableLiveData<Boolean>()
+    val removed: LiveData<Boolean> = _removed
+
     init {
         loadData()
     }
@@ -30,7 +33,9 @@ class MainViewModel: ViewModel() {
     }
 
     fun handleDelete(position: Int){
-
+        repository.remove(position, { result ->
+            _removed.value = result
+        })
     }
 
     private fun loadData(){
