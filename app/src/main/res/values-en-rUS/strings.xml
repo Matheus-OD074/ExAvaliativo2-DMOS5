@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ExAvaliativo2 DMOS5</string>
+    <string name="new_diary">Add new Diary</string>
+    <string name="edit_title_diary">Title of entry</string>
+</resources>
