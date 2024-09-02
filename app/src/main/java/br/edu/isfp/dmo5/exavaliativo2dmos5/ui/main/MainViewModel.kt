@@ -1,5 +1,6 @@
 package br.edu.isfp.dmo5.exavaliativo2dmos5.ui.main
 
+import android.icu.text.Transliterator.Position
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,10 @@ class MainViewModel: ViewModel() {
         repository.insert(journal, { result ->
             _inserted.value = result
         })
+    }
+
+    fun handleDelete(position: Int){
+
     }
 
     private fun loadData(){

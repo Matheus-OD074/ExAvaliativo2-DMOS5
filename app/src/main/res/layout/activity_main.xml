@@ -9,7 +9,7 @@
     tools:context=".ui.main.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_tasks"
+        android:id="@+id/recycler_journal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"

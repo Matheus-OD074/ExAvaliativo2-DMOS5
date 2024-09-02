@@ -2,13 +2,15 @@ package br.edu.isfp.dmo5.exavaliativo2dmos5.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.isfp.dmo5.exavaliativo2dmos5.R
 import br.edu.isfp.dmo5.exavaliativo2dmos5.databinding.ItemJournalBinding
 import br.edu.isfp.dmo5.exavaliativo2dmos5.dto.DiaryDto
+import br.edu.isfp.dmo5.exavaliativo2dmos5.ui.listener.JournalClickListener
 
-class DairyAdapter: RecyclerView.Adapter<DairyAdapter.ViewHolder>() {
+class DairyAdapter(val clickListener: JournalClickListener): RecyclerView.Adapter<DairyAdapter.ViewHolder>() {
 
     private var dataset: List<DiaryDto> = emptyList()
 
@@ -24,6 +26,9 @@ class DairyAdapter: RecyclerView.Adapter<DairyAdapter.ViewHolder>() {
         holder.binding.textTitle.text = dairyDto.title
         holder.binding.textDescription.text = dairyDto.description
         holder.binding.textDateTime.text = dairyDto.localDateTime.toString()
+        holder.binding.imgDelete.setOnClickListener{
+            clickListener.clickDelete(position)
+        }
     }
 
     override fun getItemCount(): Int {
