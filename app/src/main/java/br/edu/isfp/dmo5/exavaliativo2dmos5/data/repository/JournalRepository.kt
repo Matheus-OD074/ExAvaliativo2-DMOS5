@@ -11,7 +11,7 @@ class JournalRepository {
         const val TAG = "EXAVALIATIVO2"
         const val COLLECTION = "diario"
         const val ATT_TITLE = "title"
-        const val ATT_ID = "id"
+        const val DOC_ID = "id"
         const val ATTR_DATETIME = "localDateTime"
         const val ATTR_DESCRIPTION = "description"
     }
@@ -49,7 +49,7 @@ class JournalRepository {
 
     fun remove(position: Int, callback: (Boolean) -> Unit){
         database.collection(COLLECTION)
-            .document(ATT_ID).delete()
+            .document(DOC_ID).delete()
             .addOnSuccessListener { callback(true) }
             .addOnFailureListener { callback(false) }
     }

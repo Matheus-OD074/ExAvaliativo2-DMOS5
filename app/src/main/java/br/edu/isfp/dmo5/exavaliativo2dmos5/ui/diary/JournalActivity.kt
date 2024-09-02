@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import br.edu.isfp.dmo5.exavaliativo2dmos5.R
 import br.edu.isfp.dmo5.exavaliativo2dmos5.databinding.ActivityJournalBinding
 import java.time.LocalDate
@@ -25,6 +26,8 @@ class JournalActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener{
         super.onCreate(savedInstanceState)
         binding = ActivityJournalBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this).get(JournalViewModel::class.java)
 
         setUpListeners()
         setUpObservers()
@@ -44,6 +47,12 @@ class JournalActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener{
     private fun setUpListeners(){
         binding.btnDate.setOnClickListener{
             initDatePickerDialog()
+        }
+        binding.btnSave.setOnClickListener {
+            var title = binding.editTextTitle.text.toString()
+            var desc = binding.textfieldDescription.text.toString()
+            var dateTime = LocalDateTime.parse(binding.btnDate.text)
+            viewModel.saveJournal(title,desc,dateTime)
         }
     }
 
