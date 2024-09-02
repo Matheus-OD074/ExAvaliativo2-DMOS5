@@ -2,10 +2,11 @@ package br.edu.isfp.dmo5.exavaliativo2dmos5.data.model
 
 import java.time.LocalDateTime
 
-class Diary(
+class Journal(
     var title: String,
-    var localDateTime: LocalDateTime,
-    var description: String
+    var description: String,
+    var localDateTime: LocalDateTime
+
 )
 {
     private companion object{

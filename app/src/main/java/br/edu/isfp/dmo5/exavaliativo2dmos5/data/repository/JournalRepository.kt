@@ -1,13 +1,12 @@
 package br.edu.isfp.dmo5.exavaliativo2dmos5.data.repository
 
 import android.util.Log
-import androidx.appcompat.view.ActionMode.Callback
-import br.edu.isfp.dmo5.exavaliativo2dmos5.data.model.Diary
+import br.edu.isfp.dmo5.exavaliativo2dmos5.data.model.Journal
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 
-class DiaryRepository {
+class JournalRepository {
     companion object{
         const val TAG = "EXAVALIATIVO2"
         const val COLLECTION = "diario"
@@ -18,7 +17,7 @@ class DiaryRepository {
 
     private val database = Firebase.firestore
 
-    fun findAll(callback: (List<Diary>) -> Unit){
+    fun findAll(callback: (List<Journal>) -> Unit){
         database.collection(COLLECTION)
             .orderBy(ATT_TITLE, Query.Direction.ASCENDING)
             .addSnapshotListener{ querySnapshot, exception ->
@@ -28,7 +27,7 @@ class DiaryRepository {
                     return@addSnapshotListener
                 }
                 if (querySnapshot != null){
-                    val list = querySnapshot.toObjects(Diary::class.java)
+                    val list = querySnapshot.toObjects(Journal::class.java)
                     callback(list)
                 }else{
                     callback(emptyList())
@@ -36,9 +35,9 @@ class DiaryRepository {
             }
     }
 
-    fun insert(diary: Diary, callback: (Boolean) -> Unit){
+    fun insert(journal: Journal, callback: (Boolean) -> Unit){
         database.collection(COLLECTION)
-            .add(diary)
+            .add(journal)
             .addOnSuccessListener {
                 callback(true)
             }
