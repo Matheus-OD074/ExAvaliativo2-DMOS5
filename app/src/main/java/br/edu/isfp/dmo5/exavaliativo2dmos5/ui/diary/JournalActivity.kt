@@ -40,7 +40,7 @@ class JournalActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener{
     }
 
     private fun setUpUiDate(){
-        val str = "${date.dayOfMonth}/${date.month}/${date.year}"
+        val str = "${date.dayOfMonth}/${date.monthValue}/${date.year}"
         binding.btnDate.text = str
     }
 
@@ -51,8 +51,7 @@ class JournalActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener{
         binding.btnSave.setOnClickListener {
             var title = binding.editTextTitle.text.toString()
             var desc = binding.textfieldDescription.text.toString()
-            var dateTime = LocalDateTime.parse(binding.btnDate.text)
-            viewModel.saveJournal(title,desc,dateTime)
+            viewModel.saveJournal(title,desc,date)
         }
     }
 

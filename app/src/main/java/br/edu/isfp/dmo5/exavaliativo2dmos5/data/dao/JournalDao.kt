@@ -1,18 +1,27 @@
 package br.edu.isfp.dmo5.exavaliativo2dmos5.data.dao
 
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import br.edu.isfp.dmo5.exavaliativo2dmos5.data.model.Journal
 
-class JournalDao {
+@Dao
+interface JournalDao {
 
-    private val journals = mutableListOf<Journal>()
+    @Insert
+    suspend fun create(journal: Journal): Long
 
-    fun getAllDiary(): List<Journal> = journals
+    @Query("SELECT * FROM tb_journals ORDER BY description")
+    suspend fun getAll(): List<Journal>
 
-    fun addDiary(journal: Journal){
-        journals.add(journal)
-    }
+    @Query("SELECT * FROM tb_journals WHERE id = :id")
+    suspend fun getJournal(id: Long): Journal
 
-    fun getDiarys(id: Long): Journal{
-        return journals.stream().filter { item -> item.id == id }.findFirst().orElse(null)
-    }
+    @Update
+    suspend fun update(journal: Journal): Int
+
+    @Delete
+    suspend fun delete(journal: Journal): Int
 }

@@ -9,12 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.isfp.dmo5.exavaliativo2dmos5.R
+import br.edu.isfp.dmo5.exavaliativo2dmos5.data.repository.JournalRepository
 import br.edu.isfp.dmo5.exavaliativo2dmos5.databinding.ActivityMainBinding
 import br.edu.isfp.dmo5.exavaliativo2dmos5.ui.adapter.JournalAdapter
 import br.edu.isfp.dmo5.exavaliativo2dmos5.ui.diary.JournalActivity
 import br.edu.isfp.dmo5.exavaliativo2dmos5.ui.listener.JournalClickListener
+import br.edu.isfp.dmo5.exavaliativo2dmos5.util.Constant
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, JournalClickListener {
+class MainActivity : AppCompatActivity(), JournalClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
@@ -25,23 +27,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, JournalClickList
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val factory = MainViewModelFactory(JournalRepository(applicationContext))
+        viewModel = ViewModelProvider(this,factory).get(MainViewModel::class.java)
 
         setUpRecyclerView()
         setUpListeners()
         setUpObservers()
     }
 
-    override fun onClick(view: View) {
-        if (view.id == R.id.button_add){
-            val mIntent = Intent(this, JournalActivity::class.java)
-            startActivity(mIntent)
-        }
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadData()
     }
 
     override fun clickDelete(position: Int) {
-        viewModel.handleDelete(position)
+        val journal = adapter.getDatasetItem(position)
+        viewModel.deleteJournal(journal.id)
     }
+
+    override fun clickOpen(position: Int) {
+        val journal = adapter.getDatasetItem(position)
+        val mIntent = Intent(this, JournalActivity::class.java)
+        mIntent.putExtra(Constant.JOURNAL_ID, journal.id)
+        startActivity(mIntent)
+    }
+
 
     private fun setUpRecyclerView(){
         binding.recyclerJournal.layoutManager = LinearLayoutManager(this)
@@ -49,22 +59,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, JournalClickList
     }
 
     private fun setUpListeners(){
-        binding.buttonAdd.setOnClickListener(this)
+        binding.buttonAdd.setOnClickListener{
+            val mIntent = Intent(this, JournalActivity::class.java)
+            startActivity(mIntent)
+        }
     }
 
     private fun setUpObservers(){
-        viewModel.journals.observe(this, Observer { journals ->
-            adapter.submitDataset(journals)
-            adapter.notifyDataSetChanged()
-        })
-
-        viewModel.removed.observe(this, Observer {
-            val str =  if(it){
-                R.string.remove_sucess
-            }else{
-                R.string.remove_failure
-            }
-            Toast.makeText(this, str, Toast.LENGTH_LONG).show()
+        viewModel.journals.observe(this, Observer {
+            adapter.submitDataset(it)
         })
     }
 

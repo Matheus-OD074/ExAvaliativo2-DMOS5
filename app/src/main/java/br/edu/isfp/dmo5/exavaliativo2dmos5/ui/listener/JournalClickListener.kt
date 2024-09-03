@@ -4,4 +4,5 @@ import android.icu.text.Transliterator.Position
 
 interface JournalClickListener {
     fun clickDelete(position: Int)
+    fun clickOpen(position: Int)
 }

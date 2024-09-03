@@ -1,57 +1,26 @@
 package br.edu.isfp.dmo5.exavaliativo2dmos5.data.repository
 
-import android.util.Log
+import android.content.Context
+import br.edu.isfp.dmo5.exavaliativo2dmos5.data.database.AppDatabase
 import br.edu.isfp.dmo5.exavaliativo2dmos5.data.model.Journal
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.firestore
 
-class JournalRepository {
-    companion object{
-        const val TAG = "EXAVALIATIVO2"
-        const val COLLECTION = "diario"
-        const val ATT_TITLE = "title"
-        const val DOC_ID = "id"
-        const val ATTR_DATETIME = "localDateTime"
-        const val ATTR_DESCRIPTION = "description"
+
+class JournalRepository(context: Context) {
+    private val database = AppDatabase.getInstance(context)
+    private val dao = database.getJournalDao()
+    suspend fun insert(journal: Journal): Boolean{
+        return dao.create(journal) > 0
     }
-
-    private val database = Firebase.firestore
-
-    fun findAll(callback: (List<Journal>) -> Unit){
-        database.collection(COLLECTION)
-            .orderBy(ATT_TITLE, Query.Direction.ASCENDING)
-            .addSnapshotListener{ querySnapshot, exception ->
-                if (exception != null){
-                    Log.e(TAG, "Listen Fail.")
-                    callback(emptyList())
-                    return@addSnapshotListener
-                }
-                if (querySnapshot != null){
-                    val list = querySnapshot.toObjects(Journal::class.java)
-                    callback(list)
-                }else{
-                    callback(emptyList())
-                }
-            }
+    suspend fun update(journal: Journal): Boolean{
+        return dao.update(journal) > 0
     }
-
-    fun insert(journal: Journal, callback: (Boolean) -> Unit){
-        database.collection(COLLECTION)
-            .add(journal)
-            .addOnSuccessListener {
-                callback(true)
-            }
-            .addOnFailureListener {
-                callback(false)
-            }
+    suspend fun remove(journal: Journal): Boolean{
+        return dao.delete(journal) > 0
     }
-
-    fun remove(position: Int, callback: (Boolean) -> Unit){
-        database.collection(COLLECTION)
-            .document(DOC_ID).delete()
-            .addOnSuccessListener { callback(true) }
-            .addOnFailureListener { callback(false) }
+    suspend fun findById(id: Long): Journal{
+        return dao.getJournal(id)
     }
-
+    suspend fun findAll(): List<Journal>{
+        return dao.getAll()
+    }
 }

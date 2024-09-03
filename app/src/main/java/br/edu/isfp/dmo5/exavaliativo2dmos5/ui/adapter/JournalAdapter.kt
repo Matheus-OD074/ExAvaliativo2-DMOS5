@@ -20,13 +20,17 @@ class JournalAdapter(val clickListener: JournalClickListener): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val  dairyDto = dataset[position]
+        val  journal = dataset[position]
 
-        holder.binding.textTitle.text = dairyDto.title
-        holder.binding.textDescription.text = dairyDto.description
-        holder.binding.textDateTime.text = dairyDto.localDateTime.toString()
+        holder.binding.textTitle.text = journal.title
+        holder.binding.textDescription.text = journal.description
+        holder.binding.textDateTime.text = journal.dateTime
         holder.binding.imgDelete.setOnClickListener{
             clickListener.clickDelete(position)
+        }
+        holder.binding.viewJournal.setOnLongClickListener {
+            clickListener.clickOpen(position)
+            true
         }
     }
 
@@ -36,6 +40,11 @@ class JournalAdapter(val clickListener: JournalClickListener): RecyclerView.Adap
 
     fun submitDataset(dataset: List<Journal>){
         this.dataset = dataset
+        this.notifyDataSetChanged()
+    }
+
+    fun  getDatasetItem(position: Int): Journal{
+        return dataset[position]
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
