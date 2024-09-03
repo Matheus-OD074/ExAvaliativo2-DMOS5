@@ -1,6 +1,7 @@
 package br.edu.isfp.dmo5.exavaliativo2dmos5.ui.diary
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.DatePicker
@@ -8,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import br.edu.isfp.dmo5.exavaliativo2dmos5.R
 import br.edu.isfp.dmo5.exavaliativo2dmos5.data.repository.JournalRepository
 import br.edu.isfp.dmo5.exavaliativo2dmos5.databinding.ActivityJournalBinding
 import br.edu.isfp.dmo5.exavaliativo2dmos5.util.Constant
