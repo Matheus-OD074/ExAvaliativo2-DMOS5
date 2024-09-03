@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TITULO"
+        android:layout_margin="5dp"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +29,6 @@
         android:layout_height="wrap_content"
         android:text="TESTE descriçao"
         android:textSize="16sp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintTop_toBottomOf="@id/text_title"
         app:layout_constraintStart_toStartOf="@id/text_title"
@@ -41,7 +41,7 @@
         android:text="DATA HORA"
         android:layout_marginEnd="5dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/img_delete"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
         android:id="@+id/img_delete"
@@ -50,6 +50,7 @@
         android:src="@drawable/id_delete"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_dateTime"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

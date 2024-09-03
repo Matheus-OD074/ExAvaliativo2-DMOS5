@@ -29,7 +29,7 @@ class Journal(
     @ColumnInfo(name = "deadline")
     var dateTime: String = ""
     @Ignore
-    private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm")
     init {
         dateTime = formatter.format(localDateTime)
     }
